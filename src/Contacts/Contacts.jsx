@@ -1,12 +1,13 @@
 import React from 'react';
 
-function Contacts({ title, data }) {
+function Contacts({ data }) {
   return (
     <>
-      <h2>{title}</h2>
       <ul>
         {data.map(el => (
-          <li key={el.id}>{el.name}</li>
+          <li key={el.id}>
+            {el.name}: {el.number}
+          </li>
         ))}
       </ul>
     </>
