@@ -33,11 +33,11 @@ export default class App extends Component {
       id,
       number,
     };
-    const checkSameContact = contacts.find(
+    const checkOnSameContact = contacts.find(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase(),
     );
 
-    if (checkSameContact) {
+    if (checkOnSameContact) {
       alert(`${newContact.name} is already in contacts`);
       return;
     } else {
@@ -45,6 +45,11 @@ export default class App extends Component {
         contacts: [...prev.contacts, newContact],
       }));
     }
+  };
+  deleteContact = contactId => {
+    this.setState(prev => ({
+      contacts: prev.contacts.filter(contact => contactId !== contact.id),
+    }));
   };
 
   handleFilterChange = e => {
@@ -77,7 +82,10 @@ export default class App extends Component {
           onChange={this.handleFilterChange}
         />
 
-        <ContactList contacts={filteredContacts} />
+        <ContactList
+          onDeleteContact={this.deleteContact}
+          contacts={filteredContacts}
+        />
       </>
     );
   }
