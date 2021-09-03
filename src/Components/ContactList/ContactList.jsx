@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Contacts({ data }) {
+function ContactList({ contacts }) {
   return (
     <>
       <ul>
-        {data.map(el => (
+        {contacts.map(el => (
           <li key={el.id}>
             {el.name}: {el.number}
           </li>
@@ -14,4 +14,4 @@ function Contacts({ data }) {
   );
 }
 
-export default Contacts;
+export default ContactList;

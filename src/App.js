@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-// import Contacts from './Contacts/Contacts';
+import ContactForm from './Components/ContactForm/ContactForm';
+import ContactList from './Components/ContactList/ContactList';
+import Filter from './Components/Filter/Filter';
 import nextId from 'react-id-generator';
 
 export default class App extends Component {
@@ -11,8 +13,6 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   handleChange = e => {
@@ -23,94 +23,46 @@ export default class App extends Component {
       [name]: value,
     });
   };
-  addContact = e => {
-    e.preventDefault();
+  addContact = data => {
     this.setState(prev => ({
       contacts: [
         ...prev.contacts,
         {
-          name: prev.name,
+          name: data.name,
           id: nextId(),
-          number: prev.number,
+          number: data.number,
         },
       ],
-      name: '',
-      number: '',
     }));
+  };
+
+  handleFilterChange = e => {
+    const target = e.target.value;
+    this.setState({
+      filter: target,
+    });
   };
 
   filterByName = () => {
-    this.setState(prev => ({
-      // contacts: prev.contacts.filter(contact => console.log(Object.values(contact)))
-      // contacts: prev.contacts.filter(item =>
-      //   if (prev.filter === '') {
-      //     return prev.contacts
-      //   }
-      //   return Object.keys(item).some(key => item[key].toLowerCase().includes(prev.filter.toLowerCase()))
-      // })
-    }));
-  };
-
-  twoCalls = e => {
-    this.handleChange(e);
-    this.filterByName();
+    const { contacts, filter } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
+    );
   };
 
   render() {
-    const { name, contacts, number, filter } = this.state;
-    let search = contacts.filter(contact =>
-      Object.keys(contact).some(key =>
-        contact[key].toLowerCase().includes(filter.toLowerCase()),
-      ),
-    );
+    const { contacts, filter } = this.state;
+
+    const filteredContacts = this.filterByName();
     return (
       <>
         <h2>Phonebook</h2>
-        <form onSubmit={this.addContact}>
-          <h3>Name</h3>
-          <input
-            value={name}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-            required
-            onChange={this.handleChange}
-          />
-          <h3>Number</h3>
-          <input
-            value={number}
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-            required
-            onChange={this.handleChange}
-          />
-
-          <button type="button" onClick={this.addContact}>
-            Add contact
-          </button>
-        </form>
+        <ContactForm onSubmit={this.addContact} contacts={contacts} />
 
         <h2>Contacts</h2>
-        <h3>Find Contacts by name</h3>
-        <input
-          type="text"
-          name="filter"
-          value={filter}
-          onChange={this.handleChange}
-        />
+        <Filter value={filter} onChange={this.handleFilterChange} />
 
-        <ul>
-          {search.map(el => (
-            <li key={el.id}>
-              {el.name}: {el.number}
-            </li>
-          ))}
-        </ul>
-
-        {/* <Contacts  data={contacts}/> */}
+        <ContactList contacts={filteredContacts} />
       </>
     );
   }
