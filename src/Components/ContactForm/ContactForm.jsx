@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class ContactForm extends Component {
   state = {
@@ -53,3 +54,13 @@ export default class ContactForm extends Component {
     );
   }
 }
+ContactForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
