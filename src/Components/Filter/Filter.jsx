@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Filter({ value, onChange }) {
+function Filter({ title, value, onChange }) {
   return (
     <>
-      <h3>Find Contacts by name</h3>
+      <h3>{title}</h3>
       <input type="text" name="filter" value={value} onChange={onChange} />
     </>
   );

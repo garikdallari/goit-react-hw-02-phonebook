@@ -23,17 +23,28 @@ export default class App extends Component {
       [name]: value,
     });
   };
+
   addContact = data => {
-    this.setState(prev => ({
-      contacts: [
-        ...prev.contacts,
-        {
-          name: data.name,
-          id: nextId(),
-          number: data.number,
-        },
-      ],
-    }));
+    const { name, number } = data;
+    const { contacts } = this.state;
+    const id = nextId();
+    const newContact = {
+      name,
+      id,
+      number,
+    };
+    const checkSameContact = contacts.find(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase(),
+    );
+
+    if (checkSameContact) {
+      alert(`${newContact.name} is already in contacts`);
+      return;
+    } else {
+      this.setState(prev => ({
+        contacts: [...prev.contacts, newContact],
+      }));
+    }
   };
 
   handleFilterChange = e => {
@@ -60,7 +71,11 @@ export default class App extends Component {
         <ContactForm onSubmit={this.addContact} contacts={contacts} />
 
         <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.handleFilterChange} />
+        <Filter
+          title="Find Contacts by name"
+          value={filter}
+          onChange={this.handleFilterChange}
+        />
 
         <ContactList contacts={filteredContacts} />
       </>
