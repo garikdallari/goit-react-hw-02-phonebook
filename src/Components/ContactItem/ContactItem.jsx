@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Name, Number } from './ContactItem.styled';
-
 function ContactItem({ contact }) {
   return (
     <>
-      <Name>{contact.name}</Name>
-      <Number>{contact.number}</Number>
+      <span>{contact.name}</span>
+      <span>{contact.number}</span>
     </>
   );
 }

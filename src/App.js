@@ -3,8 +3,6 @@ import ContactForm from './Components/ContactForm/ContactForm';
 import ContactList from './Components/ContactList/ContactList';
 import Filter from './Components/Filter/Filter';
 import nextId from 'react-id-generator';
-import Container from './Components/Utils/Container/Container';
-import Title from './Components/Utils/Title/Title';
 
 export default class App extends Component {
   state = {
@@ -73,18 +71,22 @@ export default class App extends Component {
 
     const filteredContacts = this.filterByName();
     return (
-      <Container>
-        <Title size={24} text="Phonebook" />
+      <>
+        <h2>Phonebook</h2>
         <ContactForm onSubmit={this.addContact} contacts={contacts} />
 
-        <Title size={20} text="Contacts" />
-        <Filter value={filter} onChange={this.handleFilterChange} />
+        <h2>Contacts</h2>
+        <Filter
+          title="Find Contacts by name"
+          value={filter}
+          onChange={this.handleFilterChange}
+        />
 
         <ContactList
           onDeleteContact={this.deleteContact}
           contacts={filteredContacts}
         />
-      </Container>
+      </>
     );
   }
 }
