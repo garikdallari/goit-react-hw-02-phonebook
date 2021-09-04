@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Title from '../Utils/Title/Title';
+import Button from '../Utils/Button/Button';
+import { Form } from './ContactForm.styled';
+import Input from '../Utils/Input/Input';
 
 export default class ContactForm extends Component {
   state = {
@@ -28,9 +32,9 @@ export default class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>Name</h3>
-        <input
+      <Form onSubmit={this.handleSubmit}>
+        <Title size={18} text="Name" />
+        <Input
           value={name}
           type="text"
           name="name"
@@ -39,8 +43,8 @@ export default class ContactForm extends Component {
           required
           onChange={this.handleChange}
         />
-        <h3>Number</h3>
-        <input
+        <Title size={18} text="Number" />
+        <Input
           value={number}
           type="tel"
           name="number"
@@ -49,8 +53,8 @@ export default class ContactForm extends Component {
           required
           onChange={this.handleChange}
         />
-        <button type="submit">Add contact</button>
-      </form>
+        <Button text="Add to contacts" />
+      </Form>
     );
   }
 }

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Title from '../Utils/Title/Title';
+import Input from '../Utils/Input/Input';
 
-function Filter({ title, value, onChange }) {
+function Filter({ value, onChange }) {
   return (
     <>
-      <h3>{title}</h3>
-      <input type="text" name="filter" value={value} onChange={onChange} />
+      <Title size={16} text="Find contacts in contact list..." />
+      <Input type="text" name="filter" value={value} onChange={onChange} />
     </>
   );
 }

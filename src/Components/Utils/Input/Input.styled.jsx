@@ -1,3 +1,3 @@
 import styled from '@emotion/styled';
 
-export const Form = styled.form``;
+export const Field = styled.input``;
