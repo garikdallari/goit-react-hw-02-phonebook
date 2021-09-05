@@ -1,20 +1,26 @@
 import React from 'react';
 import ContactItem from '../ContactItem/ContactItem';
 import PropTypes from 'prop-types';
+import Button from '../Utils/Button/Button';
+import { MdDeleteForever } from 'react-icons/md';
+import { List, Item } from './Contacts.styled';
 
 function ContactList({ contacts, onDeleteContact }) {
   return (
     <>
-      <ul>
+      <List>
         {contacts.map(contact => (
-          <li key={contact.id}>
+          <Item key={contact.id}>
             <ContactItem contact={contact} />
-            <button type="button" onClick={() => onDeleteContact(contact.id)}>
-              Delete
-            </button>
-          </li>
+            <Button
+              title="Remove from contacts"
+              text={<MdDeleteForever color="#ff4f4f" size={30} />}
+              type="button"
+              onClick={() => onDeleteContact(contact.id)}
+            />
+          </Item>
         ))}
-      </ul>
+      </List>
     </>
   );
 }

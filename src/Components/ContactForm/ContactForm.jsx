@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Form } from './ContactForm.styled';
+import { MdPersonAdd } from 'react-icons/md';
+import Button from '../Utils/Button/Button';
+import Title from '../Utils/Title/Title';
+import Input from '../Utils/Input/Input';
 
 export default class ContactForm extends Component {
   state = {
@@ -28,9 +33,10 @@ export default class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>Name</h3>
-        <input
+      <Form onSubmit={this.handleSubmit}>
+        <Title marginR={15} size={18} text="Name" />
+        <Input
+          placeholder="type name..."
           value={name}
           type="text"
           name="name"
@@ -39,8 +45,9 @@ export default class ContactForm extends Component {
           required
           onChange={this.handleChange}
         />
-        <h3>Number</h3>
-        <input
+        <Title marginR={15} marginL={30} size={18} text="Number" />
+        <Input
+          placeholder="type number..."
           value={number}
           type="tel"
           name="number"
@@ -49,8 +56,13 @@ export default class ContactForm extends Component {
           required
           onChange={this.handleChange}
         />
-        <button type="submit">Add contact</button>
-      </form>
+        <Button
+          title="Add to contacts"
+          text={<MdPersonAdd size={50} color="#187bcd" />}
+          size={20}
+          type="submit"
+        />
+      </Form>
     );
   }
 }

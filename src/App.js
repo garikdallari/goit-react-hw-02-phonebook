@@ -3,6 +3,8 @@ import ContactForm from './Components/ContactForm/ContactForm';
 import ContactList from './Components/ContactList/ContactList';
 import Filter from './Components/Filter/Filter';
 import nextId from 'react-id-generator';
+import Container from './Components/Utils/Container/Container';
+import Title from './Components/Utils/Title/Title';
 
 export default class App extends Component {
   state = {
@@ -39,6 +41,13 @@ export default class App extends Component {
 
     if (checkOnSameContact) {
       alert(`${newContact.name} is already in contacts`);
+    }
+    if (name === '' && number === '') {
+      return;
+    }
+
+    if (name === '' || number === '') {
+      alert('Pleasy fill empty fields');
       return;
     } else {
       this.setState(prev => ({
@@ -46,6 +55,7 @@ export default class App extends Component {
       }));
     }
   };
+
   deleteContact = contactId => {
     this.setState(prev => ({
       contacts: prev.contacts.filter(contact => contactId !== contact.id),
@@ -71,22 +81,26 @@ export default class App extends Component {
 
     const filteredContacts = this.filterByName();
     return (
-      <>
-        <h2>Phonebook</h2>
-        <ContactForm onSubmit={this.addContact} contacts={contacts} />
+      <Container>
+        <Title color="#424242" size={30} text="Phonebook" />
+        <div
+          style={{
+            border: '1px solid gray',
+            width: 'fit-content',
+            padding: '20px',
+          }}
+        >
+          <ContactForm onSubmit={this.addContact} contacts={contacts} />
+        </div>
+        <Filter value={filter} onChange={this.handleFilterChange} />
 
-        <h2>Contacts</h2>
-        <Filter
-          title="Find Contacts by name"
-          value={filter}
-          onChange={this.handleFilterChange}
-        />
+        <Title marginT={40} size={20} text="Contacts" />
 
         <ContactList
           onDeleteContact={this.deleteContact}
           contacts={filteredContacts}
         />
-      </>
+      </Container>
     );
   }
 }

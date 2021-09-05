@@ -1,8 +1,18 @@
 import React from 'react';
-import { SecondaryTitle } from './Title.styled';
+import { PageTitle } from './Title.styled';
 
-function Title({ text, size }) {
-  return <SecondaryTitle size={size}>{text}</SecondaryTitle>;
+function Title({ marginT, marginR, marginL, text, size, color }) {
+  return (
+    <PageTitle
+      marginT={marginT}
+      marginR={marginR}
+      marginL={marginL}
+      color={color}
+      size={size}
+    >
+      {text}
+    </PageTitle>
+  );
 }
 
 export default Title;
